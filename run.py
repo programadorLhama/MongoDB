@@ -8,24 +8,17 @@ db_connection = db_handle.get_db_connection()
 
 minha_collection_repository = MinhaCollectionRepository(db_connection)
 
+response = minha_collection_repository.select_many({ "name": "Lhama", "pedidos.pizza": 10 })
+# print(response)
+print()
 
-order = {
-    "name": "Lhama",
-    "endereco": "Rua do Limao",
-    "pedidos": {
-        "pizza": 1,
-        "hamburguer": 5,
-        "pizza doce": 4
-    },
-    "cpf": 'abc45'
-}
+response2 = minha_collection_repository.select_one({ "name": "Lhama" })
+#print(response2)
 
-minha_collection_repository.insert_document(order)
+#minha_collection_repository.select_if_property_exists()
 
-list_of_documents = [
-    {"eric": "cartman"},
-    {"stan": "march"},
-    {"kenny": "mcCormick"},
-    {"kyle": "Broflovski"}
-]
-minha_collection_repository.insert_list_of_documents(list_of_documents)
+# minha_collection_repository.select_many_order()
+
+#minha_collection_repository.select_or()
+
+minha_collection_repository.select_by_object_id()
