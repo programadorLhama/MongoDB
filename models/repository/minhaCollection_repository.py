@@ -60,3 +60,36 @@ class MinhaCollectionRepository:
         data = collection.find({ "_id": ObjectId("642c9643dac681ba1fc5a8e7") })
         for elem in data: print(elem)
 
+    def edit_registry(self, name) -> None:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.update_one(
+            { "_id": ObjectId("645585c1ddbce431b3c82d9e") }, #Filtro
+            { "$set": { "name": name } } # Campo de edição
+        )
+        print(data.modified_count)
+
+    def edit_many_registries(self, filtro, propriedades) -> None:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.update_many(
+            filtro, #Filtro
+            { "$set": propriedades }
+        )
+        print(data.modified_count)
+
+    def edit_many_increment(self, num) -> None:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.update_many(
+            { "_id": ObjectId("645585c1ddbce431b3c82d9e") }, #Filtro
+            { "$inc": { "idade": num } }
+        )
+        print(data.modified_count)
+
+    def delete_many_registries(self) -> None:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.delete_many({ "profissao": "Programador" })
+        print(data.deleted_count)
+    
+    def delete_registry(self) -> None:
+        collection = self.__db_connection.get_collection(self.__collection_name)
+        data = collection.delete_one({ "_id": ObjectId("645585c1ddbce431b3c82d9e") })
+        print(data.deleted_count)
